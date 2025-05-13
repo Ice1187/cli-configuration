@@ -34,6 +34,9 @@ filetype plugin indent on
 " cscope: https://cscope.sourceforge.net/cscope_vim_tutorial.html
 " Usage:
 " ```
+"   # to build index in current directory recursively
+"   cscope -bkqR
+"   # select files manually
 "   find . -name '*.c' -o -name -name '*.h' > cscope.files
 "   cscope -bkqRi cscope.files
 " ```
