@@ -1,6 +1,5 @@
 set number relativenumber
 set autoindent
-set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -20,10 +19,13 @@ set path+=**  " :find <file> from cur/**
 cnoreabbrev vsf vert sf
 cnoreabbrev vsb vert sb
 
+" python indent, see :help ft-python-indent
+let g:python_indent.open_paren = 'shiftwidth()'
+let g:python_indent.closed_paren_align_last_line = v:false
+
 " Netrw 
 " nnoremap - :Explore<CR>
 nnoremap _ :Lexplore<CR>
-
 "let g:netrw_liststyle = 3                  " Tree view
 let g:netrw_banner = 0                     " Hide banner
 let g:netrw_winsize = 30                   " Width of Lexplore window
