@@ -33,6 +33,12 @@ let g:netrw_winsize = 30                   " Width of Lexplore window
 " tpope (commentary surround)
 filetype plugin indent on
 
+" omni completion (ctrl-x ctrl-o) for languages syntax
+set omnifunc=syntaxcomplete#Complete
+
+" view Man page
+autocmd FileType c,cpp runtime ftplugin/man.vim
+
 " cscope: https://cscope.sourceforge.net/cscope_vim_tutorial.html
 " Usage:
 " ```
