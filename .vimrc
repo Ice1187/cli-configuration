@@ -5,7 +5,6 @@ set shiftwidth=4
 set expandtab
 set encoding=utf-8
 set list lcs=tab:>-,eol:$,trail:·
-set signcolumn=number
 set modeline
 set splitright splitbelow
 set showcmd showmatch
@@ -20,15 +19,22 @@ cnoreabbrev vsf vert sf
 cnoreabbrev vsb vert sb
 
 " python indent, see :help ft-python-indent
+if !exists('g:python_indent')
+    let g:python_indent = {}
+endif
 let g:python_indent.open_paren = 'shiftwidth()'
 let g:python_indent.closed_paren_align_last_line = v:false
 
-" Netrw 
-" nnoremap - :Explore<CR>
-nnoremap _ :Lexplore<CR>
-"let g:netrw_liststyle = 3                  " Tree view
-let g:netrw_banner = 0                     " Hide banner
-let g:netrw_winsize = 30                   " Width of Lexplore window
+" quickfix mode
+" auto save before :make
+command! -nargs=* -bang Make update | make<bang> <args>
+cnoreabbrev <expr> make getcmdtype() == ':' && getcmdline() =~ '^make' ? 'Make' : 'make'
+autocmd QuickFixCmdPost [^l]* cwindow
+autocmd QuickFixCmdPost l* lwindow
+nnoremap <nowait> ]q :cnext<CR>zz
+nnoremap <nowait> [q :cprevious<CR>zz
+autocmd FileType python setlocal makeprg=uv\ run\ %\ $*
+autocmd FileType python setlocal errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
 " tpope (commentary surround)
 filetype plugin indent on
@@ -38,6 +44,13 @@ set omnifunc=syntaxcomplete#Complete
 
 " view Man page
 autocmd FileType c,cpp runtime ftplugin/man.vim
+
+" Netrw 
+" nnoremap - :Explore<CR>
+nnoremap _ :Lexplore<CR>
+"let g:netrw_liststyle = 3                  " Tree view
+let g:netrw_banner = 0                     " Hide banner
+let g:netrw_winsize = 30                   " Width of Lexplore window
 
 " cscope: https://cscope.sourceforge.net/cscope_vim_tutorial.html
 " Usage:
