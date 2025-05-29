@@ -10,7 +10,7 @@ set splitright splitbelow
 set showcmd showmatch
 set foldcolumn=2
 syntax on
-colorscheme monokai  " Compatible with coc.vim -- https://github.com/crusoexia/vim-monokai
+colorscheme monokai  " Compatible with coc.vim -- https://github.com/Ice1187/vim-monokai
 highlight! link SpecialKey NonText
 
 " How to Do 90% of What Plugins Do (With Just Vim)
