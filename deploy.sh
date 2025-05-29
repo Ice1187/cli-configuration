@@ -36,11 +36,11 @@ mkdir -p ~/.vim/pack/tpope/start
 cd ~/.vim/pack/tpope/start
 if [[ ! -d commentary ]]; then
     git clone -q https://tpope.io/vim/commentary.git
-    vim -u NONE -c "helptags commentary/doc" -c q --not-a-term
+    vim -es -u NONE -c "helptags commentary/doc" -c q
 fi
 if [[ ! -d surround ]]; then
     git clone -q https://tpope.io/vim/surround.git
-    vim -u NONE -c "helptags surround/doc" -c q --not-a-term
+    vim -es -u NONE -c "helptags surround/doc" -c q
 fi
 
 echo "[+] vim config deployed"
