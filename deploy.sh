@@ -15,9 +15,11 @@ echo "[*] Deploying shell config"
 if [[ $(basename $SHELL) == bash ]]; then
     backup_file ~/.bashrc
     wget -qO ~/.bashrc http://link.ice1187.com/bashrc
+    source ~/.bashrc
 elif [[ $(basename $SHELL) == zsh ]]; then
     backup_file ~/.zshrc
     wget -qO ~/.zshrc http://link.ice1187.com/zshrc
+    source ~/.bashrc
 else
     echo "[!] Unknown shell: $SHELL"
 fi
@@ -42,7 +44,6 @@ if [[ ! -d surround ]]; then
     git clone -q https://tpope.io/vim/surround.git
     vim -es -u NONE -c "helptags surround/doc" -c q
 fi
-
 echo "[+] vim config deployed"
 
 echo "[*] Deploying tmux config"
