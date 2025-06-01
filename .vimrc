@@ -52,6 +52,12 @@ nnoremap _ :Lexplore<CR>
 let g:netrw_banner = 0                     " Hide banner
 let g:netrw_winsize = 30                   " Width of Lexplore window
 
+" Tmux integration, see :help tmux-integration
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+    let &t_Ts = "\e[9m"   " Strikethrough, see :help terminal-output-codes
+    let &t_Te = "\e[29m"
+endif
+
 " cscope: https://cscope.sourceforge.net/cscope_vim_tutorial.html
 " Usage:
 " ```
