@@ -16,16 +16,13 @@ __exit_code() {
     fi
 }
 
-if [ "$color_prompt" = yes ]; then
-    # Make sure ~/.git-prompt.sh exist, it can be obtained by
-    #   - copy from /etc/bash_completion.d/git-prompt
-    #   - download from https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
-    source ~/.git-prompt.sh
-    PS1='$(__exit_code) ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[0;36m\]$(__git_ps1)\[\033[0m\033[49m\] \$ '
+if [[ -f /etc/bash_completion.d/git-prompt ]]; then
+    cp /etc/bash_completion.d/git-prompt ~/.git-prompt.sh
 else
-    PS1='[\$?] ${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    wget -qO ~/.git-prompt.sh https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 fi
-unset color_prompt force_color_prompt
+source ~/.git-prompt.sh
+PS1='$(__exit_code) ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[0;36m\]$(__git_ps1)\[\033[0m\033[49m\] \$ '
 
 # alias
 alias ls='ls --color'
