@@ -54,8 +54,10 @@ let g:netrw_winsize = 30                   " Width of Lexplore window
 
 " Tmux integration, see :help tmux-integration
 if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
-    let &t_Ts = "\e[9m"   " Strikethrough, see :help terminal-output-codes
-    let &t_Te = "\e[29m"
+    if empty(&t_Ts) && empty(&t_Te)
+        let &t_Ts = "\e[9m"   " Strikethrough, see :help terminal-output-codes
+        let &t_Te = "\e[29m"
+    endif
 endif
 
 " cscope: https://cscope.sourceforge.net/cscope_vim_tutorial.html
