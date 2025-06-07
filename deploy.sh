@@ -11,8 +11,19 @@ backup_file() {
     fi
 }
 
+get_git_prompt() {
+    if [[ -f /etc/bash_completion.d/git-prompt ]]; then
+        cp /etc/bash_completion.d/git-prompt ~/.git-prompt.sh
+    else
+        wget -qO ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh
+    fi
+}
+
 echo "[*] Deploying shell config"
 if [[ $(basename $SHELL) == bash ]]; then
+    if [[ ! -f ~/.git-prompt.sh ]]; then
+        get_git_prompt
+    fi
     backup_file ~/.bashrc
     wget -qO ~/.bashrc http://link.ice1187.com/bashrc
 elif [[ $(basename $SHELL) == zsh ]]; then
