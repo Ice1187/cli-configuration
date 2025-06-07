@@ -19,7 +19,7 @@ __exit_code() {
 if [[ -f /etc/bash_completion.d/git-prompt ]]; then
     cp /etc/bash_completion.d/git-prompt ~/.git-prompt.sh
 else
-    wget -qO ~/.git-prompt.sh https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+    wget -qO ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh
 fi
 source ~/.git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=1
