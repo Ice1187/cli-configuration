@@ -1,32 +1,36 @@
-# PS1
-__exit_code() {
-    local EXIT=$?
-    if [ $EXIT -lt 10 ]; then
-        local EXIT_PAD=" $EXIT "
-    else
-        local EXIT_PAD=$(printf "%3d" $EXIT)
-    fi
-
-    if [ $EXIT -eq 0 ]; then
-        echo -e "[$EXIT_PAD]"  # White for success
-    elif [ $EXIT -eq 130 ]; then
-        echo -e "\033[0;93m[$EXIT_PAD]\033[00m"  # Yellow for SIGINT
-    else
-        echo -e "\033[01;91m[$EXIT_PAD]\033[00m"  # Red for failure
-    fi
-}
-
-if [[ -f /etc/bash_completion.d/git-prompt ]]; then
-    cp /etc/bash_completion.d/git-prompt ~/.git-prompt.sh
-else
-    wget -qO ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh
-fi
+# git in zsh: https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Zsh
+autoload -Uz compinit && compinit -u  # -u becuase ecille share some stuff with main admin account
 source ~/.git-prompt.sh
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUPSTREAM="auto"
-PS1='$(__exit_code) ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[0;36m\]$(__git_ps1)\[\033[0m\033[49m\] \$ '
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUPSTREAM="auto"
 
-# alias
+# zsh prompt doc: https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Special-characters
+setopt PROMPT_SUBST
+__set_prompt () {
+    local EXIT_CODE=$?
+    local EXIT_STR=""
+    # color
+    if [[ $EXIT_CODE -eq 0 ]]; then
+        EXIT_STR="$EXIT_CODE"
+    elif [[ $EXIT_CODE -eq 130 ]]; then
+        EXIT_STR="%F{yellow}$EXIT_CODE%f"
+    else
+        EXIT_STR="%F{red}$EXIT_CODE%f"
+    fi
+    # padding
+    if [[ $EXIT_CODE -lt 10 ]]; then
+        EXIT_STR=" $EXIT_STR "
+    elif [[ $EXIT_CODE -lt 100 ]]; then
+        EXIT_STR=" $EXIT_STR"
+    fi
+
+    PS1="[$EXIT_STR] %F{green}%3~%f%F{cyan}$(__git_ps1)%f "
+}
+precmd_functions+=(__set_prompt)
+
+# uv
+. "$HOME/.local/bin/env"
+
 alias ls='ls --color'
 alias grep='grep --color'
 alias diff='diff --color'
