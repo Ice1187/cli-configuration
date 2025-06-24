@@ -6,6 +6,7 @@ set expandtab
 set encoding=utf-8
 set list lcs=tab:>-,eol:$,trail:·
 set modeline
+set tildeop
 set splitright splitbelow
 set showcmd showmatch
 set foldcolumn=2
