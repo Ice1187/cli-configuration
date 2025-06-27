@@ -53,6 +53,10 @@ if [[ ! -d surround ]]; then
     git clone -q https://tpope.io/vim/surround.git
     vim -es -u NONE -c "helptags surround/doc" -c q
 fi
+
+# cscope
+mkdir -p ~/.vim/plugin
+wget -O ~/.vim/plugin/cscope_maps.vim  https://cscope.sourceforge.net/cscope_maps.vim
 echo "[+] vim config deployed"
 
 echo "[*] Deploying tmux config"
