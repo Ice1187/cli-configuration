@@ -40,6 +40,10 @@ autocmd FileType python setlocal errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ lin
 " tpope (commentary surround)
 filetype plugin indent on
 
+" tagbar (https://github.com/preservim/tagbar)
+" TODO: git clone the whole repo to ~/.vim/pack/tagbar/start/
+" nmap <F8> :TagbarToggle<CR>
+
 " omni completion (ctrl-x ctrl-o) for languages syntax
 set omnifunc=syntaxcomplete#Complete
 
