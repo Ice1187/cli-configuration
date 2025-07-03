@@ -3,25 +3,32 @@ source ~/.git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
-# PS1
-__exit_code() {
+__build_prompt() {
     local EXIT=$?
+    local EXIT_PAD
+
     if [ $EXIT -lt 10 ]; then
-        local EXIT_PAD=" $EXIT "
+        EXIT_PAD=" $EXIT "
     else
-        local EXIT_PAD=$(printf "%3d" $EXIT)
+        EXIT_PAD=$(printf "%3d" $EXIT)
     fi
+
+    local exit_part
 
     if [ $EXIT -eq 0 ]; then
-        echo -e "[$EXIT_PAD]"  # White for success
+        exit_part="[$EXIT_PAD]"
     elif [ $EXIT -eq 130 ]; then
-        echo -e "\033[0;93m[$EXIT_PAD]\033[00m"  # Yellow for SIGINT
+        exit_part="\[\033[0;93m\][$EXIT_PAD]\[\033[0m\]"
     else
-        echo -e "\033[01;91m[$EXIT_PAD]\033[00m"  # Red for failure
+        exit_part="\[\033[01;91m\][$EXIT_PAD]\[\033[0m\]"
     fi
-}
-PS1='$(__exit_code) ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[0;36m\]$(__git_ps1)\[\033[0m\033[49m\] \$ '
 
+    # Build complete PS1 with all escape sequences properly delimited
+    PS1="${exit_part} \${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0m\]:\[\033[01;34m\]\w\[\033[0;36m\]
+\$(__git_ps1)\[\033[0m\] \$ "
+}
+
+PROMPT_COMMAND="__build_prompt"
 
 # alias
 alias ls='ls --color'
