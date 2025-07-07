@@ -24,8 +24,7 @@ __build_prompt() {
     fi
 
     # Build complete PS1 with all escape sequences properly delimited
-    PS1="${exit_part} \${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0m\]:\[\033[01;34m\]\w\[\033[0;36m\]
-\$(__git_ps1)\[\033[0m\] \$ "
+    PS1="${exit_part} \${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0m\]:\[\033[01;34m\]\w\[\033[0;36m\]\$(__git_ps1)\[\033[0m\] \$ "
 }
 
 PROMPT_COMMAND="__build_prompt"
